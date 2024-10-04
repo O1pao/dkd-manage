@@ -1,7 +1,13 @@
 package com.dkd.manage.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import cn.hutool.core.bean.BeanUtil;
 import com.dkd.common.utils.DateUtils;
+import com.dkd.manage.domain.dto.ChannelConfigDto;
+import com.dkd.manage.domain.dto.ChannelSkuDto;
+import com.dkd.manage.domain.vo.ChannelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dkd.manage.mapper.ChannelMapper;
@@ -103,5 +109,43 @@ public class ChannelServiceImpl implements IChannelService
     @Override
     public int batchInsertChannel(List<Channel> channelList) {
         return channelMapper.batchInsertChannel(channelList);
+    }
+
+    /**
+     * 根据商品id集合查询货道
+     * @param skuIds
+     * @return
+     */
+    @Override
+    public int countChannelBySkuIds(List<Long> skuIds){
+        return channelMapper.countChannelBySkuIds(skuIds);
+    }
+
+    /**
+     * 根据售货机软编号查询货道列表
+     * @param innerCode
+     * @return List<ChannelVo>
+     */
+    @Override
+    public List<ChannelVo> selectChannelVoListByInnerCode(String innerCode){
+        return channelMapper.selectChannelVoListByInnerCode(innerCode);
+    }
+
+    /**
+     * 货道关联商品
+     * @param channelConfigDto
+     * @return
+     */
+    @Override
+    public int setChannel(ChannelConfigDto channelConfigDto) {
+        List<Channel> channelList = channelConfigDto.getChannelList().stream().map(dto -> {
+            Channel channel = channelMapper.getChannelInfo(dto.getInnerCode(), dto.getChannelCode());
+            if (channel != null) {
+                channel.setSkuId(dto.getSkuId());
+                channel.setUpdateTime(DateUtils.getNowDate());
+            }
+            return channel;
+        }).collect(Collectors.toList());
+        return channelMapper.batchUpdateChannel(channelList);
     }
 }

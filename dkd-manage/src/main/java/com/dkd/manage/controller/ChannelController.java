@@ -2,6 +2,9 @@ package com.dkd.manage.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dkd.manage.domain.dto.ChannelConfigDto;
+import com.dkd.manage.domain.vo.ChannelVo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +26,7 @@ import com.dkd.common.core.page.TableDataInfo;
 
 /**
  * 售货机货道Controller
- * 
+ *
  * @author op
  * @date 2024-09-27
  */
@@ -44,6 +47,19 @@ public class ChannelController extends BaseController
         startPage();
         List<Channel> list = channelService.selectChannelList(channel);
         return getDataTable(list);
+    }
+
+    /**
+     * 根据售货机编号查询货道列表
+     * @param innerCode
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('manage:channel:list')")
+    @GetMapping("/list/{innerCode}")
+    public AjaxResult selectChannelVoListByInnerCode(@PathVariable String innerCode)
+    {
+        List<ChannelVo> channelVos = channelService.selectChannelVoListByInnerCode(innerCode);
+        return success(channelVos);
     }
 
     /**
@@ -101,4 +117,18 @@ public class ChannelController extends BaseController
     {
         return toAjax(channelService.deleteChannelByIds(ids));
     }
+
+    /**
+     * 设置货道关联商品
+     * @param channelConfigDto
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('manage:channel:edit')")
+    @Log(title = "售货机货道", businessType = BusinessType.UPDATE)
+    @PutMapping("/config")
+    public AjaxResult setChannel(@RequestBody ChannelConfigDto channelConfigDto)
+    {
+        return toAjax(channelService.setChannel(channelConfigDto));
+    }
+
 }
