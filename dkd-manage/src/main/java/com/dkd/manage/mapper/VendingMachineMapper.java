@@ -2,18 +2,21 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.VendingMachine;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 设备管理Mapper接口
- * 
+ *
  * @author op
  * @date 2024-09-27
  */
-public interface VendingMachineMapper 
+public interface VendingMachineMapper
 {
     /**
      * 查询设备管理
-     * 
+     *
      * @param id 设备管理主键
      * @return 设备管理
      */
@@ -21,7 +24,7 @@ public interface VendingMachineMapper
 
     /**
      * 查询设备管理列表
-     * 
+     *
      * @param vendingMachine 设备管理
      * @return 设备管理集合
      */
@@ -29,7 +32,7 @@ public interface VendingMachineMapper
 
     /**
      * 新增设备管理
-     * 
+     *
      * @param vendingMachine 设备管理
      * @return 结果
      */
@@ -37,7 +40,7 @@ public interface VendingMachineMapper
 
     /**
      * 修改设备管理
-     * 
+     *
      * @param vendingMachine 设备管理
      * @return 结果
      */
@@ -45,7 +48,7 @@ public interface VendingMachineMapper
 
     /**
      * 删除设备管理
-     * 
+     *
      * @param id 设备管理主键
      * @return 结果
      */
@@ -53,9 +56,17 @@ public interface VendingMachineMapper
 
     /**
      * 批量删除设备管理
-     * 
+     *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
     public int deleteVendingMachineByIds(Long[] ids);
+
+    /**
+     * 根据 innerCode（设备编号） 查询设备
+     * @param innerCode
+     * @return VendingMachine
+     */
+    @Select("select * from tb_vending_machine where inner_code = #{innerCode}")
+    public VendingMachine selectVendingMachineByInnerCode(@Param("innerCode") String innerCode);
 }

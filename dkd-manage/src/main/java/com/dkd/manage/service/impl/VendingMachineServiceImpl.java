@@ -10,6 +10,8 @@ import com.dkd.common.utils.uuid.UUIDUtils;
 import com.dkd.manage.domain.Channel;
 import com.dkd.manage.domain.Node;
 import com.dkd.manage.domain.VmType;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dkd.manage.mapper.VendingMachineMapper;
@@ -149,5 +151,15 @@ public class VendingMachineServiceImpl implements IVendingMachineService
     public int deleteVendingMachineById(Long id)
     {
         return vendingMachineMapper.deleteVendingMachineById(id);
+    }
+
+    /**
+     * 根据 innerCode（设备编号） 查询设备
+     * @param innerCode
+     * @return VendingMachine
+     */
+    @Override
+    public VendingMachine selectVendingMachineByInnerCode(String innerCode){
+        return vendingMachineMapper.selectVendingMachineByInnerCode(innerCode);
     }
 }
