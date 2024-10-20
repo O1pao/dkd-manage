@@ -1,9 +1,13 @@
 package com.dkd.manage.mapper;
 
 import java.util.List;
+
+import com.dkd.common.constant.DkdContants;
 import com.dkd.manage.domain.Task;
 import com.dkd.manage.domain.dto.TaskDto;
+import com.dkd.manage.domain.vo.TaskStatisticsVO;
 import com.dkd.manage.domain.vo.TaskVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 工单Mapper接口
@@ -68,4 +72,9 @@ public interface TaskMapper
      */
     public List<TaskVo> selectTaskVoList(Task task);
 
+    /**
+     * 获取当月工单统计详情
+     * @return
+     */
+    TaskStatisticsVO getThisMonthTaskData(TaskStatisticsVO taskStatisticsVO);
 }

@@ -3,18 +3,15 @@ package com.dkd.manage.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dkd.common.core.domain.R;
 import com.dkd.manage.domain.dto.TaskDto;
+import com.dkd.manage.domain.vo.TaskStatisticsVO;
 import com.dkd.manage.domain.vo.TaskVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.dkd.common.annotation.Log;
 import com.dkd.common.core.controller.BaseController;
 import com.dkd.common.core.domain.AjaxResult;
@@ -30,6 +27,7 @@ import com.dkd.common.core.page.TableDataInfo;
  * @author opao
  * @date 2024-10-08
  */
+@Api("工单管理相关接口")
 @RestController
 @RequestMapping("/manage/task")
 public class TaskController extends BaseController
@@ -116,5 +114,18 @@ public class TaskController extends BaseController
     public AjaxResult cancelTask(@RequestBody Task task)
     {
         return toAjax(taskService.cancelTask(task));
+    }
+
+    /**
+     * 获取当月工单统计详情
+     */
+    @ApiOperation("获取当月工单统计详情")
+    @GetMapping("/getThisMonthTaskData")
+    public R<TaskStatisticsVO> getThisMonthTaskData(@RequestParam String start, @RequestParam String end)
+    {
+        TaskStatisticsVO taskStatisticsVO = new TaskStatisticsVO();
+        taskStatisticsVO.setStartTime(start);
+        taskStatisticsVO.setEndTime(end);
+        return R.ok(taskService.getThisMonthTaskData(taskStatisticsVO));
     }
 }

@@ -100,6 +100,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             order by create_time desc
         </where>
     </select>
+    <select id="getThisMonthTaskData" resultType="com.dkd.manage.domain.vo.TaskStatisticsVO"
+            parameterType="com.dkd.manage.domain.vo.TaskStatisticsVO">
+        SELECT
+            COUNT(*) AS total,
+            SUM(CASE WHEN task_status = #{completedStatus} THEN 1 ELSE 0 END) AS completedTotal,
+            SUM(CASE WHEN task_status = #{cancelStatus} THEN 1 ELSE 0 END) AS cancelTotal,
+            SUM(CASE WHEN task_status = #{progressStatus} THEN 1 ELSE 0 END) AS progressTotal,
+            COUNT(DISTINCT user_id) AS workerCount
+        FROM
+            tb_task
+        WHERE
+            create_time BETWEEN #{startTime} AND #{endTime}
+    </select>
 
     <insert id="insertTask" parameterType="Task" useGeneratedKeys="true" keyProperty="taskId">
         insert into tb_task

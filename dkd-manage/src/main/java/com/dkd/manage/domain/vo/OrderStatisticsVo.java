@@ -1,11 +1,10 @@
-package com.dkd.manage.domain;
+package com.dkd.manage.domain.vo;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * 过去7天的订单统计
@@ -13,7 +12,7 @@ import java.util.Date;
 
 @Data
 @ApiModel(value = "OrderStatistics", description = "过去一周的订单统计信息")
-public class OrderStatistics {
+public class OrderStatisticsVo {
 
     @ApiModelProperty("过去一周的订单量")
     private Integer orderCountNum;
@@ -26,4 +25,5 @@ public class OrderStatistics {
 
     @ApiModelProperty("结束时间")
     private String endTime;
+
 }

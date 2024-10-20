@@ -2,7 +2,8 @@ package com.dkd.manage.service;
 
 import java.util.List;
 import com.dkd.manage.domain.Order;
-import com.dkd.manage.domain.OrderStatistics;
+import com.dkd.manage.domain.vo.OrderDatesAndAmountVo;
+import com.dkd.manage.domain.vo.OrderStatisticsVo;
 
 /**
  * 订单管理Service接口
@@ -64,5 +65,13 @@ public interface IOrderService
      * 统计当月的订单统计信息
      * @return
      */
-    public OrderStatistics getThisMonthData(OrderStatistics orderStatistics);
+    public OrderStatisticsVo getThisMonthData(String start, String end);
+
+    /**
+     * 统计某个时间段每日的日期以及销售额
+     * @param start
+     * @param end
+     * @return
+     */
+    OrderDatesAndAmountVo getSomeTimeData(String start, String end);
 }

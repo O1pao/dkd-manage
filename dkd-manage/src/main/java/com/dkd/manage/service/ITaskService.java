@@ -3,6 +3,7 @@ package com.dkd.manage.service;
 import java.util.List;
 import com.dkd.manage.domain.Task;
 import com.dkd.manage.domain.dto.TaskDto;
+import com.dkd.manage.domain.vo.TaskStatisticsVO;
 import com.dkd.manage.domain.vo.TaskVo;
 
 /**
@@ -81,4 +82,10 @@ public interface ITaskService
      * @return
      */
     int cancelTask(Task task);
+
+    /**
+     * 获取当月工单统计详情
+     * @return
+     */
+    TaskStatisticsVO getThisMonthTaskData(TaskStatisticsVO taskStatisticsVO);
 }

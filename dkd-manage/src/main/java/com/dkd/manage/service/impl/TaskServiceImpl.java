@@ -15,6 +15,7 @@ import com.dkd.manage.domain.TaskDetails;
 import com.dkd.manage.domain.VendingMachine;
 import com.dkd.manage.domain.dto.TaskDetailDto;
 import com.dkd.manage.domain.dto.TaskDto;
+import com.dkd.manage.domain.vo.TaskStatisticsVO;
 import com.dkd.manage.domain.vo.TaskVo;
 import com.dkd.manage.service.IEmpService;
 import com.dkd.manage.service.ITaskDetailsService;
@@ -199,6 +200,16 @@ public class TaskServiceImpl implements ITaskService
         task.setUpdateTime(DateUtils.getNowDate());
         // 更新工单状态为取消
         return taskMapper.updateTask(task);
+    }
+
+    /**
+     * 获取当月工单统计详情
+     * @return
+     */
+
+    @Override
+    public TaskStatisticsVO getThisMonthTaskData(TaskStatisticsVO taskStatisticsVO) {
+        return taskMapper.getThisMonthTaskData(taskStatisticsVO);
     }
 
     /**

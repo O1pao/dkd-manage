@@ -1,9 +1,13 @@
 package com.dkd.manage.mapper;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import com.dkd.manage.domain.AddrAndAmount;
 import com.dkd.manage.domain.Order;
-import com.dkd.manage.domain.OrderStatistics;
+import com.dkd.manage.domain.vo.OrderStatisticsVo;
+import org.apache.ibatis.annotations.MapKey;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 订单管理Mapper接口
@@ -65,5 +69,21 @@ public interface OrderMapper
      * 统计当月的订单统计信息
      * @return
      */
-    OrderStatistics getThisMonthData(OrderStatistics orderStatistics);
+    OrderStatisticsVo getThisMonthData(OrderStatisticsVo orderStatisticsVo);
+
+    /**
+     * 根据x轴数据日期列表获取对应日期的销售额数据
+     * @param lineXAxisData
+     * @return
+     */
+    List<Double> getSeriesDataByLineXAxisData(List<String> lineXAxisData);
+
+    /**
+     * 获取销售额前三的销售点位
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<AddrAndAmount> getTopThreeAddrAndAmount(@Param("startTime") String startTime, @Param("endTime") String endTime);
+
 }

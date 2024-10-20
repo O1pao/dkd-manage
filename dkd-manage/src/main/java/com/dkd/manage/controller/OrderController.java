@@ -1,13 +1,13 @@
 package com.dkd.manage.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.dkd.common.core.domain.R;
-import com.dkd.manage.domain.OrderStatistics;
+import com.dkd.manage.domain.vo.OrderDatesAndAmountVo;
+import com.dkd.manage.domain.vo.OrderStatisticsVo;
 import com.dkd.manage.domain.vo.OrderVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -116,10 +116,17 @@ public class OrderController extends BaseController
      */
     @ApiOperation("统计当月的订单统计信息")
     @GetMapping("/getThisMonthData")
-    public R<OrderStatistics> getThisMonthData(@RequestParam String start, @RequestParam String end){
-        OrderStatistics os = new OrderStatistics();
-        os.setStartTime(start.replace('.', '-'));
-        os.setEndTime(end.replace('.', '-'));
-        return R.ok(orderService.getThisMonthData(os));
+    public R<OrderStatisticsVo> getThisMonthData(@RequestParam String start, @RequestParam String end){
+        return R.ok(orderService.getThisMonthData(start, end));
+    }
+
+    /**
+     * 统计某个时间段每日的日期以及销售额
+     * @return
+     */
+    @ApiOperation("统计某个时间段统计信息")
+    @GetMapping("/getSomeTimeData")
+    public R<OrderDatesAndAmountVo> getSomeTimeData(@RequestParam String start, @RequestParam String end){
+        return R.ok(orderService.getSomeTimeData(start, end));
     }
 }

@@ -54,12 +54,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectOrderVo"/>
         where id = #{id}
     </select>
-    <select id="getThisMonthData" resultType="com.dkd.manage.domain.OrderStatistics">
+    <select id="getThisMonthData" resultType="com.dkd.manage.domain.vo.OrderStatisticsVo">
         select count(*) as orderCountNum, sum(amount) as orderAmountNum from tb_order
         <where>
             create_time BETWEEN #{startTime} AND #{endTime}
         </where>
     </select>
+
+    <select id="getSeriesDataByLineXAxisData" resultType="java.lang.Double" parameterType="java.util.List">
+        SELECT COALESCE(SUM(o.amount), 0) AS total_sales
+        FROM (
+        <foreach collection="list" item="date" open="(" separator=" UNION ALL " close=")">
+            SELECT #{date} AS date
+        </foreach>
+        ) AS d
+        LEFT JOIN tb_order o ON DATE(o.create_time) = d.date
+        GROUP BY d.date
+    </select>
+
+    <select id="getTopThreeAddrAndAmount" resultType="com.dkd.manage.domain.AddrAndAmount">
+        SELECT addr, SUM(amount) AS total_amount
+        FROM tb_order
+        WHERE create_time BETWEEN #{startTime} AND #{endTime}
+        GROUP BY addr
+        ORDER BY total_amount DESC
+            LIMIT 3
+    </select>
+
 
     <insert id="insertOrder" parameterType="Order">
         insert into tb_order
