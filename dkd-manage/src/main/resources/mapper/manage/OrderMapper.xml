@@ -54,11 +54,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectOrderVo"/>
         where id = #{id}
     </select>
+
     <select id="getThisMonthData" resultType="com.dkd.manage.domain.vo.OrderStatisticsVo">
         select count(*) as orderCountNum, sum(amount) as orderAmountNum from tb_order
         <where>
             create_time BETWEEN #{startTime} AND #{endTime}
         </where>
+    </select>
+
+    <select id="getTop10" resultType="com.dkd.manage.domain.vo.OrderVo">
+        SELECT
+            o.sku_id,
+            o.sku_name,
+            COUNT(*) AS total_count,                -- 商品的个数
+            SUM(o.amount) AS total_amount          -- 商品的总金额
+        FROM
+            tb_order AS o
+        GROUP BY
+            o.sku_id, o.sku_name                    -- 按 sku_id 和 sku_name 分组
+        ORDER BY
+            total_amount DESC                       -- 根据总金额降序排序
+            LIMIT 10;
     </select>
 
     <select id="getSeriesDataByLineXAxisData" resultType="java.lang.Double" parameterType="java.util.List">
@@ -169,6 +185,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where id = #{id}
+    </update>
+
+    <update id="updateAllOrderTime" parameterType="java.util.List">
+        UPDATE tb_order
+        SET
+        create_time = DATE_SUB(NOW(), INTERVAL FLOOR(RAND() * 7) DAY) + INTERVAL FLOOR(RAND() * 24) HOUR + INTERVAL
+        FLOOR(RAND() * 60) MINUTE,
+        update_time = DATE_SUB(NOW(), INTERVAL FLOOR(RAND() * 7) DAY) + INTERVAL FLOOR(RAND() * 24) HOUR + INTERVAL
+        FLOOR(RAND() * 60) MINUTE
+        WHERE
+        id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>;
+
     </update>
 
     <delete id="deleteOrderById" parameterType="Long">

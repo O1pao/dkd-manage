@@ -75,6 +75,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+    <select id="countNodeTop5" resultType="com.dkd.manage.domain.vo.PartnerVo">
+        SELECT
+            p.partner_name,
+            COUNT(n.id) AS node_count
+        FROM
+            tb_node n
+                JOIN
+            tb_partner p ON n.partner_id = p.id
+        GROUP BY
+            p.partner_name
+        ORDER BY
+            node_count DESC
+            LIMIT 5;
+    </select>
+
     <insert id="insertNode" parameterType="Node" useGeneratedKeys="true" keyProperty="id">
         insert into tb_node
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -119,6 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where id = #{id}
     </update>
+
 
     <delete id="deleteNodeById" parameterType="Long">
         delete from tb_node where id = #{id}

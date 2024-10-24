@@ -103,4 +103,13 @@ public class NodeController extends BaseController
     {
         return toAjax(nodeService.deleteNodeByIds(ids));
     }
+
+    /**
+     * 统计点位数前五的合作商
+     */
+    @GetMapping("/countNodeTop5")
+    public AjaxResult countNodeTop5()
+    {
+        return success(nodeService.countNodeTop5());
+    }
 }

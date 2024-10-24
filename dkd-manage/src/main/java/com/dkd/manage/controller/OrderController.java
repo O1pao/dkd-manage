@@ -129,4 +129,15 @@ public class OrderController extends BaseController
     public R<OrderDatesAndAmountVo> getSomeTimeData(@RequestParam String start, @RequestParam String end){
         return R.ok(orderService.getSomeTimeData(start, end));
     }
+
+    /**
+     * 修改订单时间数据
+     */
+    @PreAuthorize("@ss.hasPermi('manage:order:edit')")
+    @Log(title = "订单管理", businessType = BusinessType.UPDATE)
+    @ApiOperation("修改订单时间数据")
+    @PutMapping("/updateAllOrderTime")
+    public R<Integer> updateAllOrderTime(){
+        return R.ok(orderService.updateAllOrderTime());
+    }
 }

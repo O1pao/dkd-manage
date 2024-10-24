@@ -15,4 +15,7 @@ public class NodeVo extends Node {
 
     // 合作商
     private Partner partner;
+
+    // 合作商数量
+    private Integer partnerCount;
 }

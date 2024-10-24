@@ -3,6 +3,8 @@ package com.dkd.manage.mapper;
 import java.util.List;
 import com.dkd.manage.domain.Node;
 import com.dkd.manage.domain.vo.NodeVo;
+import com.dkd.manage.domain.vo.PartnerVo;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 点位管理Mapper接口
@@ -59,4 +61,9 @@ public interface NodeMapper
      * @return 结果
      */
     public int deleteNodeByIds(Long[] ids);
+
+    /**
+     * 统计点位数前五的合作商
+     */
+    List<PartnerVo> countNodeTop5();
 }

@@ -116,6 +116,8 @@ public class OrderServiceImpl implements IOrderService
         osVo.setEndTime(end.replace('.', '-'));
         // 获取一个时间段内的订单量、销售额
         osVo = orderMapper.getThisMonthData(osVo);
+        // 获取商品销量Top10
+        osVo.setTop10(orderMapper.getTop10());
         return osVo;
     }
 
@@ -153,6 +155,15 @@ public class OrderServiceImpl implements IOrderService
         // 设置当周排名前三点位对应的销售额
         odaAVo.setBarSeriesData(topThree.stream().map(AddrAndAmount::getTotalAmount).collect(Collectors.toList()));
         return odaAVo;
+    }
+
+    /**
+     * 修改订单时间数据
+     */
+    @Override
+    public Integer updateAllOrderTime() {
+        List<Long> ids = orderMapper.selectAllOrderId();
+        return orderMapper.updateAllOrderTime(ids);
     }
 
     /**

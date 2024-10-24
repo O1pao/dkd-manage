@@ -74,4 +74,9 @@ public interface IOrderService
      * @return
      */
     OrderDatesAndAmountVo getSomeTimeData(String start, String end);
+
+    /**
+     * 修改订单时间数据
+     */
+    Integer updateAllOrderTime();
 }

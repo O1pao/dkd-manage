@@ -1,5 +1,6 @@
 package com.dkd.manage.domain.vo;
 
+import com.dkd.manage.domain.Order;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,4 +27,6 @@ public class OrderStatisticsVo {
     @ApiModelProperty("结束时间")
     private String endTime;
 
+    @ApiModelProperty("热销商品Top10")
+    private List<OrderVo> top10;
 }

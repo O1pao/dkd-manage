@@ -6,8 +6,9 @@ import java.util.Map;
 import com.dkd.manage.domain.AddrAndAmount;
 import com.dkd.manage.domain.Order;
 import com.dkd.manage.domain.vo.OrderStatisticsVo;
-import org.apache.ibatis.annotations.MapKey;
+import com.dkd.manage.domain.vo.OrderVo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 订单管理Mapper接口
@@ -72,6 +73,12 @@ public interface OrderMapper
     OrderStatisticsVo getThisMonthData(OrderStatisticsVo orderStatisticsVo);
 
     /**
+     * 统计当月的Top10商品信息
+     * @return
+     */
+    List<OrderVo> getTop10();
+
+    /**
      * 根据x轴数据日期列表获取对应日期的销售额数据
      * @param lineXAxisData
      * @return
@@ -85,5 +92,18 @@ public interface OrderMapper
      * @return
      */
     List<AddrAndAmount> getTopThreeAddrAndAmount(@Param("startTime") String startTime, @Param("endTime") String endTime);
+
+    /**
+     * 获取所有订单的id集合
+     * @return
+     */
+    @Select("select id from tb_order")
+    List<Long> selectAllOrderId();
+
+    /**
+     * 修改订单时间数据
+     * @return 影响行数
+     */
+    Integer updateAllOrderTime(@Param("ids") List<Long> ids);
 
 }

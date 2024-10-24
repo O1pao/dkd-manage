@@ -3,6 +3,7 @@ package com.dkd.manage.service;
 import java.util.List;
 import com.dkd.manage.domain.Node;
 import com.dkd.manage.domain.vo.NodeVo;
+import com.dkd.manage.domain.vo.PartnerVo;
 
 /**
  * 点位管理Service接口
@@ -59,4 +60,9 @@ public interface INodeService
      * @return 结果
      */
     public int deleteNodeById(Long id);
+
+    /**
+     * 统计点位数前五的合作商
+     */
+    public List<PartnerVo> countNodeTop5();
 }
