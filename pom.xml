@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.dkd</groupId>
-    <artifactId>dkd-parent</artifactId>
+    <groupId>com.dml</groupId>
+    <artifactId>dml-parent</artifactId>
     <version>3.8.7</version>
 
-    <name>dkd-parent</name>
+    <name>dml-parent</name>
     <url>http://www.ruoyi.vip</url>
-    <description>帝可得管理系统</description>
+    <description>大米粒售货机管理系统</description>
 
     <properties>
-        <dkd.version>3.8.7</dkd.version>
+        <dml.version>3.8.7</dml.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -139,56 +139,56 @@
 
             <!-- 定时任务-->
             <dependency>
-                <groupId>com.dkd</groupId>
-                <artifactId>dkd-quartz</artifactId>
-                <version>${dkd.version}</version>
+                <groupId>com.dml</groupId>
+                <artifactId>dml-quartz</artifactId>
+                <version>${dml.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.dkd</groupId>
-                <artifactId>dkd-generator</artifactId>
-                <version>${dkd.version}</version>
+                <groupId>com.dml</groupId>
+                <artifactId>dml-generator</artifactId>
+                <version>${dml.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.dkd</groupId>
-                <artifactId>dkd-framework</artifactId>
-                <version>${dkd.version}</version>
+                <groupId>com.dml</groupId>
+                <artifactId>dml-framework</artifactId>
+                <version>${dml.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.dkd</groupId>
-                <artifactId>dkd-system</artifactId>
-                <version>${dkd.version}</version>
+                <groupId>com.dml</groupId>
+                <artifactId>dml-system</artifactId>
+                <version>${dml.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.dkd</groupId>
-                <artifactId>dkd-common</artifactId>
-                <version>${dkd.version}</version>
+                <groupId>com.dml</groupId>
+                <artifactId>dml-common</artifactId>
+                <version>${dml.version}</version>
             </dependency>
 
             <!--  帝可得管理-->
             <dependency>
-                <groupId>com.dkd</groupId>
-                <artifactId>dkd-manage</artifactId>
-                <version>${dkd.version}</version>
+                <groupId>com.dml</groupId>
+                <artifactId>dml-manage</artifactId>
+                <version>${dml.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>dkd-admin</module>
-        <module>dkd-framework</module>
-        <module>dkd-system</module>
-        <module>dkd-quartz</module>
-        <module>dkd-generator</module>
-        <module>dkd-common</module>
-        <module>dkd-manage</module>
+        <module>dml-admin</module>
+        <module>dml-framework</module>
+        <module>dml-system</module>
+        <module>dml-quartz</module>
+        <module>dml-generator</module>
+        <module>dml-common</module>
+        <module>dml-manage</module>
     </modules>
     <packaging>pom</packaging>
 
